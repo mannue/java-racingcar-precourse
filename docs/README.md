@@ -20,4 +20,8 @@
 - 에러 발생한 부분 부터 다시 입력
 
 ----------------------
- 
+## 역할 class
+
+### Energy class
+- VO class 이며 0 ~ 9 까지의 값을 가진다.
+- 0 ~ 9 까지 범위를 벗어나면 IllegalArgumentException 가 발생한다.
