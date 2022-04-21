@@ -23,5 +23,5 @@
 ## 역할 class
 
 ### Energy class
-- VO class 이며 0 ~ 9 까지의 값을 가진다.
-- 0 ~ 9 까지 범위를 벗어나면 IllegalArgumentException 가 발생한다.
+- Energy 는 int 값을 가지며, VO 객체다.
+- Energy 는 서로 비교할수 있다.
