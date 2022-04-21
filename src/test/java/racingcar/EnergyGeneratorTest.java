@@ -1,10 +1,11 @@
 package racingcar;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class EnergyGeneratorTest {
@@ -15,6 +16,14 @@ public class EnergyGeneratorTest {
         EnergyGenerator energyGenerator = new EnergyGenerator(1, 9);
         Energy[] createEnergy = energyGenerator.create(number);
         assertThat(createEnergy.length).isEqualTo(number);
+    }
+
+    @DisplayName("생성범위는 잘못 입력시 에러 발생")
+    @ParameterizedTest
+    @CsvSource(value = {"9:1","-2:-9","2:2"}, delimiter = ':')
+    public void invalidRange(final int rangeMin, final int rangeMax) {
+        assertThatThrownBy(() -> new EnergyGenerator(rangeMin, rangeMax))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
 }
