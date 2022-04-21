@@ -25,3 +25,7 @@
 ### Energy class
 - Energy 는 int 값을 가지며, VO 객체다.
 - Energy 는 서로 비교할수 있다.
+
+### EnergyGenerator class
+- EnergyGenerator 는 일정범위를 주어지면 해당 범위에서 Energy 를 생성한다.
+- EnergyGenerator 는 입력 값 만큼 Energy 를 생성한다.
