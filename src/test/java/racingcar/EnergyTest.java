@@ -1,9 +1,9 @@
 package racingcar;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Objects;
 
@@ -19,10 +19,18 @@ public class EnergyTest {
         assertThat(Objects.equals(new Energy(value),new Energy(target))).isEqualTo(expectedResult);
     }
 
-    @DisplayName("Energy 는 0~9 까지의 값만 갖는다.")
+
+    @DisplayName("Energy 는 서로 비교 할수 있다.")
     @ParameterizedTest
-    @ValueSource(ints = {-1,10})
-    public void invalidTest(final int item) {
-        assertThatThrownBy(() -> new Energy(item)).isInstanceOf(IllegalArgumentException.class);
+    @CsvSource(value = {"1:9:true", "9:1:false"}, delimiter = ':')
+    public void CompareEnergyTest(final int source, final int target, final boolean expectedResult) {
+        assertThat(new Energy(source).compareTo(new Energy(target)) < 0).isEqualTo(expectedResult);
+    }
+
+    @DisplayName("Energy 를 비교할때 null 값인 경우 IllegalArgument Exception 이 발생한다.")
+    @Test
+    public void invalidTest() {
+        assertThatThrownBy(() -> new Energy(1).compareTo(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
