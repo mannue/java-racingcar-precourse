@@ -8,4 +8,8 @@ public class Car {
         this.name = name;
         this.minGauge = minGauge;
     }
+
+    public boolean isMove(Energy energy) {
+        return energy.compareTo(minGauge) >= 0;
+    }
 }

@@ -42,3 +42,4 @@
 
 ### Car class
 - Car 는 이름 과 움직일수 있는 최소 Energy gauge 를 갖는다.
+- Car 는 외부로 부터 Energy 를 주입 받고 최소 Energy gauge 보다 움직인다.
