@@ -16,7 +16,7 @@ public class Car {
     }
 
     public boolean isMove(Energy energy) {
-        if (energy.compareTo(minGauge) >= 0) {
+        if (minGauge.compareTo(energy) <= 0) {
             this.startPosition = this.startPosition.move(1);
             return true;
         }

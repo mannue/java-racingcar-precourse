@@ -45,3 +45,4 @@
 - Car 는 외부로 부터 Energy 를 주입 받고 최소 Energy gauge 보다 움직인다.
 - Car 는 초기 Position 값을 갖는다.
 - Car 가 움직일때 마다 Position 값도 증가한다.
+- isMove 메소드의 인자값은 null 이 될수 없다.
