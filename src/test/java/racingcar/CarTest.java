@@ -50,4 +50,5 @@ public class CarTest {
                 .isInstanceOf(IllegalArgumentException.class)
                   .hasMessageContaining("[ERROR]");
     }
+
 }
