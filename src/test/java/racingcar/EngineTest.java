@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class EngineTest {
@@ -33,5 +34,12 @@ public class EngineTest {
                 Arguments.of(9, 1, false),
                 Arguments.of(5, 5, true)
         );
+    }
+
+    @DisplayName("외부로 부터 입력받은 Energy 는 null 이 될수 없다.")
+    @Test
+    public void invalidIsWorkingTest() {
+        assertThatThrownBy(() -> new Engine(0).isWorking(null))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
