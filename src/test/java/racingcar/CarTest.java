@@ -28,4 +28,10 @@ public class CarTest {
     public void isMove(final int energyValue, final boolean expectedResult) {
         assertThat(car.isMove(new Energy(energyValue))).isEqualTo(expectedResult);
     }
+
+    @DisplayName("Car 는 Position 값을 가진다.")
+    @Test
+    public void hasPosition() {
+        assertThat(new Car(DEFAULT_NAME, new Energy(MIN_GAUGE), new Position(0))).isNotNull();
+    }
 }
