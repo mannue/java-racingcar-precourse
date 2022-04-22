@@ -3,7 +3,7 @@ package racingcar;
 public class Car {
     private final String name;
     private final Energy minGauge;
-    private final Position startPosition;
+    private Position startPosition;
 
     public Car(final String name, final Energy minGauge) {
         this(name, minGauge, new Position(0));
@@ -16,6 +16,10 @@ public class Car {
     }
 
     public boolean isMove(Energy energy) {
-        return energy.compareTo(minGauge) >= 0;
+        if (energy.compareTo(minGauge) >= 0) {
+            this.startPosition = this.startPosition.move(1);
+            return true;
+        }
+        return false;
     }
 }
