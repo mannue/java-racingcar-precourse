@@ -20,4 +20,9 @@ public class Position {
     public int hashCode() {
         return Objects.hash(dist);
     }
+
+    public Position move(int dist) {
+        if (dist == 0) return this;
+        return new Position(this.dist + dist);
+    }
 }
