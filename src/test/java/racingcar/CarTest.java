@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 public class CarTest {
     private static final int MIN_GAUGE = 4;
-    private static final String DEFAULT_NAME = "pobi";
+    private static final Name DEFAULT_NAME = new Name("pobi");
     private Car car;
     private Position spyPosition;
     @BeforeEach
@@ -70,6 +70,6 @@ public class CarTest {
         );
     }
     private Car createCar(final String name , final Position position) {
-        return new Car(name, new Energy(MIN_GAUGE), position);
+        return new Car(new Name(name), new Energy(MIN_GAUGE), position);
     }
 }

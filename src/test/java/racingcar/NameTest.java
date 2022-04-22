@@ -29,6 +29,6 @@ public class NameTest {
     @DisplayName("String 출력")
     @Test
     public void toStringTest() {
-        assertThat(name.toString()).isEqualTo("aaa:").usingComparator(String::compareToIgnoreCase);
+        assertThat(name.toString()).isEqualTo("aaa").usingComparator(String::compareToIgnoreCase);
     }
 }
