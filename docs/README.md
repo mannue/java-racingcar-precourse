@@ -38,3 +38,4 @@
 ### Position class
 - Position 는 VO 객체이다.
 - Position 에서 move 함수 호출시 파라미터에 맞는 새로운 Position object 를 리턴한다.
+- Position Object 를 String 로 출력시 멤버 변수 값에 맞게 hyphen 을 출력한다.

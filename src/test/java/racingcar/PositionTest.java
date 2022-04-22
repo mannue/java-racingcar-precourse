@@ -3,6 +3,8 @@ package racingcar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -27,5 +29,12 @@ public class PositionTest {
         assertThat(one).isEqualTo(new Position(1));
         Position two = one.move(1);
         assertThat(two).isEqualTo(new Position(2));
+    }
+
+    @DisplayName("String 출력시 distance 크기 맞게 막대기로 출력한다.")
+    @ParameterizedTest
+    @CsvSource(value = {"1:-", "2:--"}, delimiter=':')
+    public void printTest(final int dist, final String expectedStr) {
+        assertThat(new Position(dist).toString()).isEqualTo(expectedStr).usingComparator(String::compareTo);
     }
 }
