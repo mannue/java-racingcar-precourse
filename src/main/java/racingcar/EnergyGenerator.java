@@ -19,8 +19,16 @@ public class EnergyGenerator {
     public Energy[] create(final int number) {
         Energy[] energyBox = new Energy[number];
         for (int i=0; i < number; i++) {
-            energyBox[i] = new Energy(pickNumberInRange(this.min, this.max));
+            energyBox[i] = validNumber();
         }
         return energyBox;
+    }
+
+    private Energy validNumber() {
+        final int outputNumber = pickNumberInRange(this.min, this.max);
+        if (this.min <= outputNumber && outputNumber <= this.max) {
+            return new Energy(outputNumber);
+        }
+        throw new IllegalStateException("[ERROR] pickNumberInRange Error");
     }
 }

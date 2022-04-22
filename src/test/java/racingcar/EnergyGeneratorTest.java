@@ -1,21 +1,33 @@
 package racingcar;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class EnergyGeneratorTest {
+    private EnergyGenerator energyGenerator;
+    private final int MIN = 1;
+    private final int MAX = 9;
+
+    @BeforeEach
+    void setUp() {
+        energyGenerator = new EnergyGenerator(MIN, MAX);
+    }
+
     @DisplayName("EnergyGenerator 는 생성 범위를 가지며 사용자 입력 숫자만큼 Energy 를 생성한다.")
     @ParameterizedTest
     @ValueSource(ints = {1,9})
-    public void createTest(final int number) {
-        EnergyGenerator energyGenerator = new EnergyGenerator(1, 9);
-        Energy[] createEnergy = energyGenerator.create(number);
-        assertThat(createEnergy.length).isEqualTo(number);
+    public void createTest(final int createNumber) {
+        Energy[] createEnergy = energyGenerator.create(createNumber);
+        assertThat(createEnergy.length).isEqualTo(createNumber);
     }
 
     @DisplayName("생성범위는 잘못 입력시 에러 발생")
@@ -24,6 +36,16 @@ public class EnergyGeneratorTest {
     public void invalidRange(final int rangeMin, final int rangeMax) {
         assertThatThrownBy(() -> new EnergyGenerator(rangeMin, rangeMax))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("범위를 초과한 Energy 를 생성시 에러를 발생한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {0,10})
+    public void createInvalidRangeEnergy(final int mockReturnValue) {
+        try (MockedStatic<Randoms> mockRandoms = Mockito.mockStatic(Randoms.class)) {
+            mockRandoms.when(() -> Randoms.pickNumberInRange(MIN, MAX)).thenReturn(mockReturnValue);
+            assertThatThrownBy(() -> energyGenerator.create(1)).isInstanceOf(IllegalStateException.class);
+        }
     }
 
 }
