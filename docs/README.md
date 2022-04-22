@@ -46,3 +46,4 @@
 - Car 는 초기 Position 값을 갖는다.
 - Car 가 움직일때 마다 Position 값도 증가한다.
 - isMove 메소드의 인자값은 null 이 될수 없다.
+- Car class 를 String 으로 변환시 이름과 거리를 출력한다.

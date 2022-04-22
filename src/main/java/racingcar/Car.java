@@ -31,4 +31,9 @@ public class Car {
             throw new IllegalArgumentException("[ERROR] input is null");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s:%s",this.name,this.startPosition);
+    }
 }

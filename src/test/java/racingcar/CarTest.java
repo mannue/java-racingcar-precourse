@@ -1,11 +1,14 @@
 package racingcar;
 
-import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -51,4 +54,22 @@ public class CarTest {
                   .hasMessageContaining("[ERROR]");
     }
 
+    @DisplayName("Car -> String 으로 변환시 이름과 Position 을 출력한다.")
+    @ParameterizedTest
+    @MethodSource("provideNamePositionExpectedString")
+    public void toStringTest(final String name, final Position position, final String disPlayMsg) {
+        assertThat(createCar(name, position).toString()).isEqualTo(disPlayMsg)
+                .usingComparator(String::compareToIgnoreCase);
+    }
+
+    private static Stream<Arguments> provideNamePositionExpectedString() {
+        return Stream.of(
+                Arguments.of("pobi",new Position(1), "pobi:-"),
+                Arguments.of("crong",new Position(0), "crong:"),
+                Arguments.of("honux",new Position(2), "honux:--")
+        );
+    }
+    private Car createCar(final String name , final Position position) {
+        return new Car(name, new Energy(MIN_GAUGE), position);
+    }
 }
