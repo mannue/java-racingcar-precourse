@@ -5,24 +5,25 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.Mockito;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 public class CarTest {
     private static final int MIN_GAUGE = 4;
     private static final String DEFAULT_NAME = "pobi";
     private Car car;
-
+    private Position spyPosition;
     @BeforeEach
     void setUp() {
-        this.car = new Car(DEFAULT_NAME, new Energy(MIN_GAUGE));
+        this.spyPosition = spy(new Position(0));
+        this.car = new Car(DEFAULT_NAME, new Energy(MIN_GAUGE), spyPosition);
     }
 
-    @DisplayName("Car 는 이름과 최소 Energy 를 갖는다.")
+    @DisplayName("Car 는 이름, 최소 Energy, Position 를 갖는다.")
     @Test
-    public void hasNameWithPosition() {
+    public void hasNameWithEnergyWithPosition() {
         assertThat(car).isNotNull();
     }
 
@@ -33,18 +34,10 @@ public class CarTest {
         assertThat(car.isMove(new Energy(energyValue))).isEqualTo(expectedResult);
     }
 
-    @DisplayName("Car 는 Position 값을 가진다.")
-    @Test
-    public void hasPosition() {
-        assertThat(new Car(DEFAULT_NAME, new Energy(MIN_GAUGE), new Position(0))).isNotNull();
-    }
-
     @DisplayName("Car 가 움직이면 Position 값도 증가한다.")
     @Test
     public void increasePosition() {
-        Position mockPosition = Mockito.spy(Position.class);
-        Car defaultCar = new Car(DEFAULT_NAME, new Energy(MIN_GAUGE), mockPosition);
-        assertThat(defaultCar.isMove(new Energy(MIN_GAUGE + 1))).isEqualTo(true);
-        verify(mockPosition).move(1);
+        this.isMove(MIN_GAUGE+1, true);
+        verify(spyPosition).move(1);
     }
 }
