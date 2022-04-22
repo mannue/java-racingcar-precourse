@@ -6,4 +6,9 @@ public class Engine {
     public Engine(final int energyGauge) {
         this.energyGauge = new Energy(energyGauge);
     }
+
+
+    public boolean isWorking(final Energy push) {
+        return push.compareTo(energyGauge) >= 0;
+    }
 }

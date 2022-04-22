@@ -32,3 +32,4 @@
 
 ### Engine class
 - Engine 는 움직이는데 필요한 Energy 기준이 되는 Gauge 값을 가진다
+- Engine 는 외부로 부터 Energy 를 입력받아 동작 여부를 확인하는 메소드를 가진다.
