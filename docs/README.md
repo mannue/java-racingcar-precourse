@@ -50,3 +50,4 @@
 
 ### Name Class
 - Name class 는 VO 객체이며, 생성시 String 값을 받는다.
+- String 으로 출력할수 있어야 한다.

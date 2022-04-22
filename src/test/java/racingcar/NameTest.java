@@ -25,4 +25,10 @@ public class NameTest {
         assertThat(name).isEqualTo(new Name("aaa"));
         assertThat(new Name("b")).isNotEqualTo(name);
     }
+
+    @DisplayName("String 출력")
+    @Test
+    public void toStringTest() {
+        assertThat(name.toString()).isEqualTo("aaa:").usingComparator(String::compareToIgnoreCase);
+    }
 }
