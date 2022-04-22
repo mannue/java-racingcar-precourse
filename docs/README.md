@@ -28,7 +28,8 @@
 
 ### EnergyGenerator class
 - EnergyGenerator 는 일정범위를 주어지면 해당 범위에서 Energy 를 생성한다.
-- EnergyGenerator 는 입력 값 만큼 Energy 를 생성한다.
+- ~~EnergyGenerator 는 입력 값 만큼 Energy 를 생성한다.~~
+- EnergyGenerator 의 create 함수 호출 시 Energy 를 생성한다.
 
 ### Engine class
 - Engine 는 움직이는데 필요한 Energy 기준이 되는 Gauge 값을 가진다

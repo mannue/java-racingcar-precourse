@@ -3,6 +3,7 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Randoms;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,11 +24,12 @@ public class EnergyGeneratorTest {
     }
 
     @DisplayName("EnergyGenerator 는 생성 범위를 가지며 사용자 입력 숫자만큼 Energy 를 생성한다.")
-    @ParameterizedTest
-    @ValueSource(ints = {1,9})
-    public void createTest(final int createNumber) {
-        Energy[] createEnergy = energyGenerator.create(createNumber);
-        assertThat(createEnergy.length).isEqualTo(createNumber);
+    @Test
+    public void createTest() {
+        Energy createdEnergy = energyGenerator.create();
+        assertThat(createdEnergy).isNotNull();
+        assertThat(new Energy(MAX).compareTo(createdEnergy) >= 0).isTrue();
+        assertThat(new Energy(MIN).compareTo(createdEnergy) <= 0).isTrue();
     }
 
     @DisplayName("생성범위는 잘못 입력시 에러 발생")
@@ -44,7 +46,7 @@ public class EnergyGeneratorTest {
     public void createInvalidRangeEnergy(final int mockReturnValue) {
         try (MockedStatic<Randoms> mockRandoms = Mockito.mockStatic(Randoms.class)) {
             mockRandoms.when(() -> Randoms.pickNumberInRange(MIN, MAX)).thenReturn(mockReturnValue);
-            assertThatThrownBy(() -> energyGenerator.create(1)).isInstanceOf(IllegalStateException.class);
+            assertThatThrownBy(() -> energyGenerator.create()).isInstanceOf(IllegalStateException.class);
         }
     }
 

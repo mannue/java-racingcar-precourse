@@ -16,12 +16,8 @@ public class EnergyGenerator {
             throw new IllegalArgumentException("[ERROR] invalid ranges");
         }
     }
-    public Energy[] create(final int number) {
-        Energy[] energyBox = new Energy[number];
-        for (int i=0; i < number; i++) {
-            energyBox[i] = validNumber();
-        }
-        return energyBox;
+    public Energy create() {
+        return validNumber();
     }
 
     private Energy validNumber() {
