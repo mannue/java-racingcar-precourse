@@ -33,8 +33,9 @@ public class PositionTest {
 
     @DisplayName("String 출력시 distance 크기 맞게 막대기로 출력한다.")
     @ParameterizedTest
-    @CsvSource(value = {"1:-", "2:--"}, delimiter=':')
-    public void printTest(final int dist, final String expectedStr) {
+    @CsvSource(value = {"1:-", "2:--", "0:"}, delimiter=':')
+    public void printTest(final int dist, String expectedStr) {
+        if (dist == 0) expectedStr = "";
         assertThat(new Position(dist).toString()).isEqualTo(expectedStr).usingComparator(String::compareTo);
     }
 }
