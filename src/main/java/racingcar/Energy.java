@@ -36,7 +36,11 @@ public class Energy implements Comparable<Energy> {
         if (Objects.isNull(target)) {
             throw new IllegalArgumentException("[ERROR] target is null");
         }
-        return this.value - target.value;
+        return target.compareBy(this.value);
+    }
+
+    private int compareBy(int source) {
+        return source - this.value;
     }
 
 }
