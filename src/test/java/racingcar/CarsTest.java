@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 public class CarsTest {
     private Cars cars;
-    private String[] carNames = {"pobi", "crong"};
+    private final String[] carNames = {"pobi", "crong"};
 
     @BeforeEach
     public void setUp() {
@@ -63,6 +63,14 @@ public class CarsTest {
         for (int i =0; i < winners.length; i++) {
             assertThat(winners[i].getName()).isEqualTo(expectedNames[i]);
         }
+    }
+
+    @DisplayName("car 정보가 없는 상태에서 winner 호출시 에러를 발생한다.")
+    @Test
+    public void invalidState() {
+        Cars cars = new Cars();
+        assertThatThrownBy(cars::winner).isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("[ERROR]");
     }
 
     private static Stream<Arguments> provideCarsAndWinners() {

@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Cars {
-    private List<Car> carList = new ArrayList<>();
-    private Queue<Car> queue = new LinkedBlockingQueue<>();
+    private final List<Car> carList = new ArrayList<>();
+    private final Queue<Car> queue = new LinkedBlockingQueue<>();
 
     public Cars(Car... cars) {
         carList.addAll(Arrays.asList(cars));
@@ -30,9 +30,16 @@ public class Cars {
     }
 
     public Car[] winner() {
+        validationSize();
         queue.add(carList.remove(0));
         carList.forEach(this::compare);
         return queue.toArray(new Car[0]);
+    }
+
+    private void validationSize() {
+        if (carList.size() < 1) {
+            throw new IllegalStateException("[ERROR] no car infos");
+        }
     }
 
     private void compare(final Car target) {

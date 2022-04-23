@@ -70,3 +70,4 @@
 - play method 는 EnergyGenerator 를 인자로 받고 Car Array 크기 만큼 create 메소드를 호출한다.
 - play method 에 잘못된 인자값인 경우 에러를 발생한다.
 - winner method 는 우승한 Car Array 를 넘겨준다.
+- winner 호출 시 car 정보들이 없으면 에러를 발생한다.
