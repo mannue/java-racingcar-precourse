@@ -2,7 +2,7 @@ package racingcar;
 
 import java.util.Objects;
 
-public class Position {
+public class Position implements Comparable<Position>{
     private static final char DISPLAY_CHAR = '-';
     private final int dist;
     public Position(final int dist) {
@@ -34,5 +34,17 @@ public class Position {
             stringBuilder.append(DISPLAY_CHAR);
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int compareTo(Position target) {
+        if (Objects.isNull(target)) {
+            throw new IllegalArgumentException("[ERROR] Don't input null");
+        }
+        return target.compareBy(this.dist);
+    }
+
+    private int compareBy(final int sourceDist) {
+        return sourceDist - this.dist;
     }
 }

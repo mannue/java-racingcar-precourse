@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class PositionTest {
@@ -37,5 +38,19 @@ public class PositionTest {
     public void printTest(final int dist, String expectedStr) {
         if (dist == 0) expectedStr = "";
         assertThat(new Position(dist).toString()).isEqualTo(expectedStr).usingComparator(String::compareTo);
+    }
+
+    @DisplayName("비교 테스트")
+    @Test
+    public void compare() {
+        assertThat(zero.compareTo(new Position(1)) < 0).isTrue();
+    }
+
+    @DisplayName("Comapre 시 입력값은 null 이 되면 안된다.")
+    @Test
+    public void invalidCompare() {
+        assertThatThrownBy(() -> zero.compareTo(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR]");
     }
 }
