@@ -7,7 +7,8 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 public class Presenter {
     private static final String INPUT_DELIMITER = ",";
     private static final String INPUT_DISPLAY_NAME = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
-    private static final String INPUT_DISPLAY_COUNT = "시도할회수";
+    private static final String INPUT_DISPLAY_COUNT = "시도할 회수는 몇회인가요?";
+    private static final String OUT_RESULT = "실행 결과";
 
     public static Optional<Name[]> inputCarNames() {
         try {
@@ -43,15 +44,36 @@ public class Presenter {
         }
     }
 
-    public void disPlayPrintForName() {
+    public static void disPlayPrintForName() {
         System.out.println(INPUT_DISPLAY_NAME);
     }
 
-    public void disPlayPrintForTryCount() {
+    public static void disPlayPrintForTryCount() {
         System.out.println(INPUT_DISPLAY_COUNT);
     }
 
-    public static void winnerPrint(Name[] winners) {
-        System.out.print("최종 우승자: "+String.join(",", Arrays.toString(winners)));
+    public static void disPlayResult() {
+        addEnter(2);
+        System.out.println(OUT_RESULT);
+    }
+
+    public static void disPlayCar(final Cars cars) {
+        System.out.println(cars);
+    }
+
+    public static void winnerPrint(final Name[] winners) {
+        System.out.print("최종 우승자: " + stringFormat(winners));
+    }
+
+    private static String stringFormat(final Name[] names) {
+        return String.join(",", Arrays.toString(names))
+                .replace("[", "")
+                .replace("]", "");
+    }
+
+    private static void addEnter(final int num) {
+        for (int i=1; i <= num; i++) {
+            System.out.println();
+        }
     }
 }
