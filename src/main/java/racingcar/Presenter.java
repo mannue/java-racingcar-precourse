@@ -25,7 +25,7 @@ public class Presenter {
         return nameSet.toArray(new Name[0]);
     }
 
-    public static Optional<Integer> inputRacingTryCount() {
+    public static Optional<RacingCount> inputRacingCount() {
         try {
             return Optional.of(validationForTryCount());
         } catch (IllegalArgumentException e) {
@@ -34,17 +34,12 @@ public class Presenter {
         return Optional.empty();
     }
 
-    private static int validationForTryCount() {
-        int racingCount = -1;
+    private static RacingCount validationForTryCount() {
         try {
-            racingCount = Integer.parseInt(readLine());
+            return new RacingCount(Integer.parseInt(readLine()));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] input is invalid");
         }
-        if (racingCount < 0) {
-            throw new IllegalArgumentException("[ERROR] invalid racingCount is "+racingCount);
-        }
-        return racingCount;
     }
 
     public void disPlayPrintForInput() {

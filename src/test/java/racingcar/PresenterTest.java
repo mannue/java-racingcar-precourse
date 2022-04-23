@@ -55,9 +55,9 @@ public class PresenterTest extends NsTest {
     @ValueSource(ints = {1, 2, 3})
     public void inputCount(final int expectedCount) {
         Runnable runnable = () -> {
-            Optional<Integer> isNumber = Presenter.inputRacingTryCount();
+            Optional<RacingCount> isNumber = Presenter.inputRacingCount();
             assertThat(isNumber.isPresent()).isTrue();
-            assertThat(isNumber.get()).isEqualTo(expectedCount);
+            assertThat(isNumber.get()).isEqualTo(new RacingCount(expectedCount));
         };
         usingMockInput(String.valueOf(expectedCount), runnable);
     }
@@ -67,7 +67,7 @@ public class PresenterTest extends NsTest {
     @ValueSource(strings = {"-1","a"})
     public void invalidRacingTryCount(final String count) {
         Runnable runnable = () -> {
-            Presenter.inputRacingTryCount();
+            Presenter.inputRacingCount();
             assertSimpleTest(() -> Assertions.assertThat(output()).contains(ERROR_MESSAGE));
         };
         usingMockInput(count, runnable);
