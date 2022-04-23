@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class RacingCountTest {
 
@@ -12,5 +13,13 @@ public class RacingCountTest {
     public void createTest() {
         RacingCount racingCount = new RacingCount(0);
         assertThat(racingCount).isEqualTo(new RacingCount(0));
+    }
+
+    @DisplayName("레이싱 횟수는 음수 값을 입력할수 없다.")
+    @Test
+    public void invalidRacingCount() {
+        assertThatThrownBy(() -> new RacingCount(-1))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR]");
     }
 }

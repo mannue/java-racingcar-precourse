@@ -61,3 +61,4 @@
 
 ### RacingCount class
 - 레이싱 횟수를 가진 class 로써 VO 객체 이며, 생성시 Integer 값을 받는다.
+- 레이싱 횟수는 음수 값을 가질수 없다.

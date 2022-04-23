@@ -6,7 +6,14 @@ public class RacingCount {
     private final int count;
 
     public RacingCount(final int count) {
+        validation(count);
         this.count = count;
+    }
+
+    private void validation(final int count) {
+        if (count < 0) {
+            throw new IllegalArgumentException("[ERROR] Don't input negative");
+        }
     }
 
     @Override
