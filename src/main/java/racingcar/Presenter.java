@@ -6,7 +6,8 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Presenter {
     private static final String INPUT_DELIMITER = ",";
-    private static final String INPUt_DISPLAY = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
+    private static final String INPUT_DISPLAY_NAME = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
+    private static final String INPUT_DISPLAY_COUNT = "시도할회수";
 
     public static Optional<Name[]> inputCarNames() {
         try {
@@ -42,8 +43,12 @@ public class Presenter {
         }
     }
 
-    public void disPlayPrintForInput() {
-        System.out.println(INPUt_DISPLAY);
+    public void disPlayPrintForName() {
+        System.out.println(INPUT_DISPLAY_NAME);
+    }
+
+    public void disPlayPrintForTryCount() {
+        System.out.println(INPUT_DISPLAY_COUNT);
     }
 
     public static void winnerPrint(Name[] winners) {
