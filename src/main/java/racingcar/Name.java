@@ -1,14 +1,6 @@
 package racingcar;
 
-import java.math.BigDecimal;
-import java.nio.file.Path;
 import java.util.Objects;
-import java.util.function.DoublePredicate;
-import java.util.function.IntPredicate;
-import java.util.function.LongPredicate;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 public class Name {
     private final String name;
@@ -19,7 +11,7 @@ public class Name {
     }
 
     private void validation(final String name) {
-        if (name.length() < 1) {
+        if (name.length() < 1 || name.length() > 5) {
             throw new IllegalArgumentException("[ERROR] invalid name is "+name);
         }
     }
