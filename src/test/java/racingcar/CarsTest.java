@@ -39,4 +39,12 @@ public class CarsTest {
         cars.play(spyGenerator);
         verify(spyGenerator, times(carNames.length)).create();
     }
+
+    @DisplayName("play 함수에서 Generator 가 null 이면 에러를 발생한다.")
+    @Test
+    public void playInvalidParam() {
+        assertThatThrownBy(() -> cars.play(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR]");
+    }
 }

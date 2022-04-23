@@ -17,8 +17,15 @@ public class Cars {
     }
 
     public void play(EnergyGenerator energyGenerator) {
+        validationParam(energyGenerator);
         for (Car car : carList) {
             car.move(energyGenerator.create());
+        }
+    }
+
+    private void validationParam(Object obj) {
+        if (Objects.isNull(obj)) {
+            throw new IllegalArgumentException("[ERROR] energyGenerator is null");
         }
     }
 }
