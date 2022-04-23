@@ -75,14 +75,14 @@ public class CarTest {
     @Test
     public void isWinner() {
         Car crong = createCar("crong", new Position(2));
-        assertThat(car.isResult(crong)).isEqualTo(Lose);
-        assertThat(crong.isResult(car)).isEqualTo(Win);
+        assertThat(car.isMatchResult(crong)).isEqualTo(Lose);
+        assertThat(crong.isMatchResult(car)).isEqualTo(Win);
     }
 
     @DisplayName("결과 판별시 잘못된 값을 입력하면 에러가 발생한다.")
     @Test
     public void invalidIsResultParam() {
-        assertThatThrownBy(() -> car.isResult(null))
+        assertThatThrownBy(() -> car.isMatchResult(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
     }

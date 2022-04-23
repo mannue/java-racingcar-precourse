@@ -35,7 +35,7 @@ public class Car {
         return name;
     }
 
-    public RacingResult isResult(Car target) {
+    public RacingResult isMatchResult(Car target) {
         paramValidation(target);
         final int diffPosition = target.compareBy(this.position);
         if (diffPosition == 0) {
