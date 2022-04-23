@@ -14,7 +14,14 @@ public class Name {
     private final String name;
 
     public Name(final String name) {
+        validation(name);
         this.name = name;
+    }
+
+    private void validation(final String name) {
+        if (name.length() < 1) {
+            throw new IllegalArgumentException("[ERROR] invalid name is "+name);
+        }
     }
 
     @Override
