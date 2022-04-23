@@ -46,5 +46,7 @@ public class Presenter {
         System.out.println(INPUt_DISPLAY);
     }
 
-
+    public static void winnerPrint(Name[] winners) {
+        System.out.print("최종 우승자: "+String.join(",", Arrays.toString(winners)));
+    }
 }

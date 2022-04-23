@@ -73,6 +73,15 @@ public class PresenterTest extends NsTest {
         usingMockInput(count, runnable);
     }
 
+    @DisplayName("winner 출력")
+    @Test
+    public void winnerPrint() {
+        Runnable runnable = () -> {
+            Presenter.winnerPrint(new Name[]{new Name("pobi"), new Name("honux")});
+            assertSimpleTest(() -> Assertions.assertThat(output()).contains("최종 우승자: pobi, honux"));
+        };
+    }
+
     private void usingMockInput(final String mockInput, Runnable runnable) {
         try (MockedStatic<Console> consoleMockedStatic = Mockito.mockStatic(Console.class)) {
             consoleMockedStatic.when(Console::readLine).thenReturn(mockInput);
