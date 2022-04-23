@@ -6,6 +6,7 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class Presenter {
     private static final String INPUT_DELIMITER = ",";
+    private static final String INPUt_DISPLAY = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
 
     public static Optional<Name[]> inputCarNames() {
         try {
@@ -23,4 +24,10 @@ public class Presenter {
         }
         return nameSet.toArray(new Name[0]);
     }
+
+    public void disPlayPrintForInput() {
+        System.out.println(INPUt_DISPLAY);
+    }
+
+
 }

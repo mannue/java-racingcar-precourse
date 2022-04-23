@@ -25,11 +25,12 @@ public class PresenterTest extends NsTest {
     @ParameterizedTest
     @MethodSource("provideUserInput")
     public void sameInputSizeWithListSize(final String mockInput, final int expectedLength) {
-        Consumer<Optional<Name[]>> consumer = (optional) -> {
-            AssertionsForClassTypes.assertThat(optional.isPresent()).isTrue();
-            AssertionsForClassTypes.assertThat(optional.get().length).isEqualTo(expectedLength);
+        Runnable runnable = () -> {
+            Optional<Name[]> names = Presenter.inputCarNames();
+            AssertionsForClassTypes.assertThat(names.isPresent()).isTrue();
+            AssertionsForClassTypes.assertThat(names.get().length).isEqualTo(expectedLength);
         };
-        usingMockInput(mockInput, consumer);
+        usingMockInput(mockInput, runnable);
     }
 
     private static Stream<Arguments> provideUserInput() {
@@ -42,16 +43,17 @@ public class PresenterTest extends NsTest {
     @DisplayName("사용자가 입력을 잘못하면 ERROR 메시지를 출력한다.")
     @Test
     public void invalidInputTest() {
-        Consumer<Optional<Name[]>> consumer = (optional) -> {
+        Runnable runnable = () -> {
+            Presenter.inputCarNames();
             assertSimpleTest(() -> Assertions.assertThat(output()).contains(ERROR_MESSAGE));
         };
-        usingMockInput("", consumer);
+        usingMockInput("", runnable);
     }
 
-    private void usingMockInput(final String mockInput, Consumer<Optional<Name[]>> consumer) {
+    private void usingMockInput(final String mockInput, Runnable runnable) {
         try (MockedStatic<Console> consoleMockedStatic = Mockito.mockStatic(Console.class)) {
             consoleMockedStatic.when(Console::readLine).thenReturn(mockInput);
-            consumer.accept(Presenter.inputCarNames());
+            runnable.run();
         }
     }
 
