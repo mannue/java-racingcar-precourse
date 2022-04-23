@@ -48,6 +48,7 @@
 - Car 가 움직일때 마다 Position 값도 증가한다.
 - isMove 메소드의 인자값은 null 이 될수 없다.
 - Car class 를 String 으로 변환시 이름과 거리를 출력한다.
+- Car 객체 끼리 승자를 판별할수 있다.
 
 ### Name Class
 - Name class 는 VO 객체이며, 생성시 String 값을 받는다.

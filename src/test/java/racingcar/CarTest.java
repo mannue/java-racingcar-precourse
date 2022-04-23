@@ -14,6 +14,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static racingcar.RacingResult.Lose;
+import static racingcar.RacingResult.Win;
 
 public class CarTest {
     private static final int MIN_GAUGE = 4;
@@ -71,5 +73,14 @@ public class CarTest {
     }
     private Car createCar(final String name , final Position position) {
         return new Car(new Name(name), new Energy(MIN_GAUGE), position);
+    }
+
+    @DisplayName("승자를 판별할수 있다.")
+    @Test
+    public void isWinner() {
+        Car pobi = createCar("pobi", new Position(1));
+        Car crong = createCar("crong", new Position(2));
+        assertThat(pobi.isResult(crong)).isEqualTo(Lose);
+        assertThat(crong.isResult(pobi)).isEqualTo(Win);
     }
 }

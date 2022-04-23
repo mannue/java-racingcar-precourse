@@ -2,7 +2,9 @@ package racingcar;
 
 import java.util.Objects;
 
-public class Car {
+import static racingcar.RacingResult.*;
+
+public class Car{
     private final Name name;
     private final Energy minGauge;
     private Position startPosition;
@@ -35,5 +37,20 @@ public class Car {
     @Override
     public String toString() {
         return String.format("%s:%s",this.name,this.startPosition);
+    }
+
+    public RacingResult isResult(Car target) {
+        final int diffPosition = target.compareBy(this.startPosition);
+        if (diffPosition == 0) {
+            return Draw;
+        }
+        if (diffPosition > 0) {
+            return Win;
+        }
+        return Lose;
+    }
+
+    private int compareBy(Position sourcePosition) {
+        return sourcePosition.compareTo(this.startPosition);
     }
 }
