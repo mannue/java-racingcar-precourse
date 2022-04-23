@@ -35,6 +35,15 @@ public class Cars {
         return getWinnerNames();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (Car car : carList) {
+            builder.append(String.format("%s",car));
+        }
+        return builder.toString();
+    }
+
     private Name[] getWinnerNames() {
         Set<Name> res = new HashSet<>();
         while (!queue.isEmpty()) {

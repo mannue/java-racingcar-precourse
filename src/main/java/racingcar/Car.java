@@ -28,7 +28,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return String.format("%s:%s", this.name, this.position);
+        return String.format("%s : %s\n", this.name, this.position);
     }
 
     public Name getName() {
