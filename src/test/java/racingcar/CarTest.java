@@ -12,8 +12,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static racingcar.RacingResult.Lose;
 import static racingcar.RacingResult.Win;
 
@@ -37,22 +36,17 @@ public class CarTest {
 
     @DisplayName("Car 는 외부로부터 입력 받은 Energy 가 최소 Energy 보다 크면 움직인다.")
     @ParameterizedTest
-    @CsvSource(value = {"4:True", "9:True", "3:False"}, delimiter = ':')
-    public void isMove(final int energyValue, final boolean expectedResult) {
-        assertThat(car.isMove(new Energy(energyValue))).isEqualTo(expectedResult);
+    @CsvSource(value = {"4:1", "9:1", "3:0"}, delimiter = ':')
+    public void move(final int energyValue, final int expectedTime) {
+        car.move(new Energy(energyValue));
+        verify(spyPosition, times(expectedTime)).move(anyInt());
     }
 
-    @DisplayName("Car 가 움직이면 Position 값도 증가한다.")
-    @Test
-    public void increasePosition() {
-        this.isMove(MIN_GAUGE + 1, true);
-        verify(spyPosition).move(1);
-    }
 
     @DisplayName("isMove 메소드의 인자값은 null 이 될수 없다.")
     @Test
     public void isMoveParamIsNull() {
-        assertThatThrownBy(() -> car.isMove(null))
+        assertThatThrownBy(() -> car.move(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
     }

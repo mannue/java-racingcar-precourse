@@ -4,10 +4,10 @@ import java.util.Objects;
 
 import static racingcar.RacingResult.*;
 
-public class Car{
+public class Car {
     private final Name name;
     private final Energy minGauge;
-    private Position startPosition;
+    private Position position;
 
     public Car(final Name name, final Energy minGauge) {
         this(name, minGauge, new Position(0));
@@ -16,21 +16,19 @@ public class Car{
     public Car(final Name name, final Energy minGauge, final Position startPosition) {
         this.name = name;
         this.minGauge = minGauge;
-        this.startPosition = startPosition;
+        this.position = startPosition;
     }
 
-    public boolean isMove(Energy energy) {
+    public void move(Energy energy) {
         paramValidation(energy);
-        if (energy.compareTo(minGauge) < 0) {
-            return false;
+        if (energy.compareTo(minGauge) >= 0) {
+            this.position = this.position.move(1);
         }
-        this.startPosition = this.startPosition.move(1);
-        return true;
     }
 
     @Override
     public String toString() {
-        return String.format("%s:%s",this.name,this.startPosition);
+        return String.format("%s:%s", this.name, this.position);
     }
 
     public Name getName() {
@@ -39,7 +37,7 @@ public class Car{
 
     public RacingResult isResult(Car target) {
         paramValidation(target);
-        final int diffPosition = target.compareBy(this.startPosition);
+        final int diffPosition = target.compareBy(this.position);
         if (diffPosition == 0) {
             return Draw;
         }
@@ -56,6 +54,6 @@ public class Car{
     }
 
     private int compareBy(Position sourcePosition) {
-        return sourcePosition.compareTo(this.startPosition);
+        return sourcePosition.compareTo(this.position);
     }
 }
