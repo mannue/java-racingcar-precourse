@@ -25,6 +25,10 @@ public class Presenter {
         return nameSet.toArray(new Name[0]);
     }
 
+    public static Optional<Integer> inputRacingTryCount() {
+        return Optional.of(Integer.parseInt(readLine()));
+    }
+
     public void disPlayPrintForInput() {
         System.out.println(INPUt_DISPLAY);
     }

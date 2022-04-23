@@ -3,20 +3,20 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class PresenterTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
@@ -27,8 +27,8 @@ public class PresenterTest extends NsTest {
     public void sameInputSizeWithListSize(final String mockInput, final int expectedLength) {
         Runnable runnable = () -> {
             Optional<Name[]> names = Presenter.inputCarNames();
-            AssertionsForClassTypes.assertThat(names.isPresent()).isTrue();
-            AssertionsForClassTypes.assertThat(names.get().length).isEqualTo(expectedLength);
+            assertThat(names.isPresent()).isTrue();
+            assertThat(names.get().length).isEqualTo(expectedLength);
         };
         usingMockInput(mockInput, runnable);
     }
@@ -48,6 +48,18 @@ public class PresenterTest extends NsTest {
             assertSimpleTest(() -> Assertions.assertThat(output()).contains(ERROR_MESSAGE));
         };
         usingMockInput("", runnable);
+    }
+
+    @DisplayName("레이싱 횟수를 위한 입력값을 받는다")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    public void inputCount(final int expectedCount) {
+        Runnable runnable = () -> {
+            Optional<Integer> isNumber = Presenter.inputRacingTryCount();
+            assertThat(isNumber.isPresent()).isTrue();
+            assertThat(isNumber.get()).isEqualTo(expectedCount);
+        };
+        usingMockInput(String.valueOf(expectedCount), runnable);
     }
 
     private void usingMockInput(final String mockInput, Runnable runnable) {
