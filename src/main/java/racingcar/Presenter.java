@@ -10,14 +10,14 @@ public class Presenter {
 
     public static Optional<Name[]> inputCarNames() {
         try {
-            return Optional.of(validationInput(readLine().split(INPUT_DELIMITER)));
+            return Optional.of(validationForCarName(readLine().split(INPUT_DELIMITER)));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         return Optional.empty();
     }
 
-    private static Name[] validationInput(final String[] names) {
+    private static Name[] validationForCarName(final String[] names) {
         Set<Name> nameSet = new HashSet<>();
         for (String name : names) {
             nameSet.add(new Name((name)));
@@ -26,7 +26,25 @@ public class Presenter {
     }
 
     public static Optional<Integer> inputRacingTryCount() {
-        return Optional.of(Integer.parseInt(readLine()));
+        try {
+            return Optional.of(validationForTryCount());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    private static int validationForTryCount() {
+        int racingCount = -1;
+        try {
+            racingCount = Integer.parseInt(readLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] input is invalid");
+        }
+        if (racingCount < 0) {
+            throw new IllegalArgumentException("[ERROR] invalid racingCount is "+racingCount);
+        }
+        return racingCount;
     }
 
     public void disPlayPrintForInput() {

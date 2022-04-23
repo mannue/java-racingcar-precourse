@@ -62,6 +62,17 @@ public class PresenterTest extends NsTest {
         usingMockInput(String.valueOf(expectedCount), runnable);
     }
 
+    @DisplayName("레이싱 횟수 입력시 잘못된 값을 입력하면 에러를 발생한다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"-1","a"})
+    public void invalidRacingTryCount(final String count) {
+        Runnable runnable = () -> {
+            Presenter.inputRacingTryCount();
+            assertSimpleTest(() -> Assertions.assertThat(output()).contains(ERROR_MESSAGE));
+        };
+        usingMockInput(count, runnable);
+    }
+
     private void usingMockInput(final String mockInput, Runnable runnable) {
         try (MockedStatic<Console> consoleMockedStatic = Mockito.mockStatic(Console.class)) {
             consoleMockedStatic.when(Console::readLine).thenReturn(mockInput);
