@@ -61,9 +61,9 @@ public class CarTest {
 
     private static Stream<Arguments> provideNamePositionExpectedString() {
         return Stream.of(
-                Arguments.of("pobi", new Position(1), "pobi:-"),
-                Arguments.of("crong", new Position(0), "crong:"),
-                Arguments.of("honux", new Position(2), "honux:--")
+                Arguments.of("pobi", new Position(1), "pobi : -\n"),
+                Arguments.of("crong", new Position(0), "crong : \n"),
+                Arguments.of("honux", new Position(2), "honux : --\n")
         );
     }
 
