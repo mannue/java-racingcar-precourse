@@ -28,18 +28,17 @@ public class Car{
         return true;
     }
 
-    private void paramValidation(Energy energy) {
-        if (Objects.isNull(energy)) {
-            throw new IllegalArgumentException("[ERROR] input is null");
-        }
-    }
-
     @Override
     public String toString() {
         return String.format("%s:%s",this.name,this.startPosition);
     }
 
+    public Name getName() {
+        return name;
+    }
+
     public RacingResult isResult(Car target) {
+        paramValidation(target);
         final int diffPosition = target.compareBy(this.startPosition);
         if (diffPosition == 0) {
             return Draw;
@@ -48,6 +47,12 @@ public class Car{
             return Win;
         }
         return Lose;
+    }
+
+    private void paramValidation(Object input) {
+        if (Objects.isNull(input)) {
+            throw new IllegalArgumentException("[ERROR] input is null");
+        }
     }
 
     private int compareBy(Position sourcePosition) {

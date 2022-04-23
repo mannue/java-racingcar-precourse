@@ -22,6 +22,7 @@ public class CarTest {
     private static final Name DEFAULT_NAME = new Name("pobi");
     private Car car;
     private Position spyPosition;
+
     @BeforeEach
     void setUp() {
         this.spyPosition = spy(new Position(0));
@@ -44,16 +45,16 @@ public class CarTest {
     @DisplayName("Car 가 움직이면 Position 값도 증가한다.")
     @Test
     public void increasePosition() {
-        this.isMove(MIN_GAUGE+1, true);
+        this.isMove(MIN_GAUGE + 1, true);
         verify(spyPosition).move(1);
     }
 
     @DisplayName("isMove 메소드의 인자값은 null 이 될수 없다.")
     @Test
     public void isMoveParamIsNull() {
-          assertThatThrownBy(() -> car.isMove(null))
+        assertThatThrownBy(() -> car.isMove(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                  .hasMessageContaining("[ERROR]");
+                .hasMessageContaining("[ERROR]");
     }
 
     @DisplayName("Car -> String 으로 변환시 이름과 Position 을 출력한다.")
@@ -66,21 +67,29 @@ public class CarTest {
 
     private static Stream<Arguments> provideNamePositionExpectedString() {
         return Stream.of(
-                Arguments.of("pobi",new Position(1), "pobi:-"),
-                Arguments.of("crong",new Position(0), "crong:"),
-                Arguments.of("honux",new Position(2), "honux:--")
+                Arguments.of("pobi", new Position(1), "pobi:-"),
+                Arguments.of("crong", new Position(0), "crong:"),
+                Arguments.of("honux", new Position(2), "honux:--")
         );
     }
-    private Car createCar(final String name , final Position position) {
+
+    private Car createCar(final String name, final Position position) {
         return new Car(new Name(name), new Energy(MIN_GAUGE), position);
     }
 
     @DisplayName("승자를 판별할수 있다.")
     @Test
     public void isWinner() {
-        Car pobi = createCar("pobi", new Position(1));
         Car crong = createCar("crong", new Position(2));
-        assertThat(pobi.isResult(crong)).isEqualTo(Lose);
-        assertThat(crong.isResult(pobi)).isEqualTo(Win);
+        assertThat(car.isResult(crong)).isEqualTo(Lose);
+        assertThat(crong.isResult(car)).isEqualTo(Win);
+    }
+
+    @DisplayName("결과 판별시 잘못된 값을 입력하면 에러가 발생한다.")
+    @Test
+    public void invalidIsResultParam() {
+        assertThatThrownBy(() -> car.isResult(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR]");
     }
 }
