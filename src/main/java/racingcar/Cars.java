@@ -1,12 +1,12 @@
 package racingcar;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Cars {
     private List<Car> carList = new ArrayList<>();
+    private Queue<Car> queue = new LinkedBlockingQueue<>();
+
     public Cars(Car... cars) {
         carList.addAll(Arrays.asList(cars));
     }
@@ -27,5 +27,23 @@ public class Cars {
         if (Objects.isNull(obj)) {
             throw new IllegalArgumentException("[ERROR] energyGenerator is null");
         }
+    }
+
+    public Car[] winner() {
+        queue.add(carList.remove(0));
+        carList.forEach(this::compare);
+        return queue.toArray(new Car[0]);
+    }
+
+    private void compare(final Car target) {
+        Car source = queue.peek();
+        RacingResult result = source.isMatchResult(target);
+        if (RacingResult.isWin(result)) {
+            return ;
+        }
+        if (RacingResult.isLose(result)) {
+            queue.clear();
+        }
+        queue.add(target);
     }
 }

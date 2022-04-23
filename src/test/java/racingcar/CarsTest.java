@@ -3,6 +3,11 @@ package racingcar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -46,5 +51,46 @@ public class CarsTest {
         assertThatThrownBy(() -> cars.play(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
+    }
+
+    @DisplayName("winner 함수는 우승자 또는 우승자들의 Car 을 넘겨준다.")
+    @ParameterizedTest
+    @MethodSource("provideCarsAndWinners")
+    public void winner(final Cars cars , final String[] names) {
+        Car[] winners = cars.winner();
+        Name[] expectedNames = createNameBy(names);
+        assertThat(winners.length).isEqualTo(expectedNames.length);
+        for (int i =0; i < winners.length; i++) {
+            assertThat(winners[i].getName()).isEqualTo(expectedNames[i]);
+        }
+    }
+
+    private static Stream<Arguments> provideCarsAndWinners() {
+        return Stream.of(
+            Arguments.of(createCars(new String[]{"pobi", "crong", "honux"}, new int[] {1,2,3}),new String[]{"honux"}),
+            Arguments.of(createCars(new String[]{"pobi", "crong", "honux"}, new int[] {1,3,1}),new String[]{"crong"}),
+            Arguments.of(createCars(new String[]{"pobi", "crong", "honux"}, new int[] {3,1,1}),new String[]{"pobi"}),
+            Arguments.of(createCars(new String[]{"pobi", "crong", "honux"}, new int[] {2,2,1}),new String[]{"pobi","crong"}),
+            Arguments.of(createCars(new String[]{"pobi", "crong", "honux"}, new int[] {2,2,2}),new String[]{"pobi", "crong", "honux"})
+        );
+    }
+
+    private static Cars createCars(final String[] names, final int[] positions) {
+        if (names.length != positions.length) {
+            throw new IllegalArgumentException("[ERROR] difference size");
+        }
+        Car[] cars = new Car[names.length];
+        for (int i=0; i < names.length; i++) {
+            cars[i] = new Car(new Name(names[i]),new Energy(0),new Position(positions[i]));
+        }
+        return new Cars(cars);
+    }
+
+    private Name[] createNameBy(String[] names) {
+        Name[] res = new Name[names.length];
+        for (int i=0; i < names.length; i++) {
+            res[i] = new Name(names[i]);
+        }
+        return res;
     }
 }
