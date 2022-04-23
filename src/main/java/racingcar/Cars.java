@@ -29,11 +29,18 @@ public class Cars {
         }
     }
 
-    public Car[] winner() {
+    public Name[] winner() {
         validationSize();
-        queue.add(carList.remove(0));
-        carList.forEach(this::compare);
-        return queue.toArray(new Car[0]);
+        carList.forEach(this::findWinner);
+        return getWinnerNames();
+    }
+
+    private Name[] getWinnerNames() {
+        Set<Name> res = new HashSet<>();
+        while (!queue.isEmpty()) {
+            res.add(queue.poll().getName());
+        }
+        return res.toArray(new Name[0]);
     }
 
     private void validationSize() {
@@ -42,8 +49,16 @@ public class Cars {
         }
     }
 
-    private void compare(final Car target) {
+    private void findWinner(final Car target) {
         Car source = queue.peek();
+        if (Objects.isNull(source)) {
+            queue.add(target);
+            return;
+        }
+        compare(source, target);
+    }
+
+    private void compare(Car source, Car target) {
         RacingResult result = source.isMatchResult(target);
         if (RacingResult.isWin(result)) {
             return ;

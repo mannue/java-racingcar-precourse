@@ -57,12 +57,10 @@ public class CarsTest {
     @ParameterizedTest
     @MethodSource("provideCarsAndWinners")
     public void winner(final Cars cars , final String[] names) {
-        Car[] winners = cars.winner();
+        Name[] winners = cars.winner();
         Name[] expectedNames = createNameBy(names);
         assertThat(winners.length).isEqualTo(expectedNames.length);
-        for (int i =0; i < winners.length; i++) {
-            assertThat(winners[i].getName()).isEqualTo(expectedNames[i]);
-        }
+        assertThat(winners).contains(expectedNames);
     }
 
     @DisplayName("car 정보가 없는 상태에서 winner 호출시 에러를 발생한다.")
