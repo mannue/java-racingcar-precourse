@@ -22,4 +22,12 @@ public class RacingCountTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
     }
+
+    @DisplayName("레이싱 횟수가 음수가 되면 에러가 발생하며 레이싱이 종료된다.")
+    @Test
+    public void decrease() {
+        assertThatThrownBy(() -> new RacingCount(0).decrease())
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("finish");
+    }
 }

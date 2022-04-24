@@ -16,6 +16,14 @@ public class RacingCount {
         }
     }
 
+    public RacingCount decrease() {
+        try {
+            return new RacingCount(count-1);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException("Racing is finish");
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
