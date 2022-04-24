@@ -22,24 +22,33 @@ public class RacingService {
 
     public void play() {
         Presenter.disPlayResult();
-        Presenter.winnerPrint(eachPlay().winner());
+        Cars cars = createCars();
+        start(cars);
+        Presenter.winnerPrint(cars.winner());
     }
 
-    private Cars eachPlay() {
-        Cars cars = new Cars(createCars());
-        for (int i = 0; !Objects.equals(racingCount, new RacingCount(i)); i++) {
+    private void start(final Cars cars) {
+        try {
+            eachPlay(cars);
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void eachPlay(final Cars cars) {
+       do {
+            racingCount = racingCount.decrease();
             cars.play(this.generator);
             Presenter.disPlayCar(cars);
-        }
-        return cars;
+        } while (true);
     }
 
-    private Car[] createCars() {
+    private Cars createCars() {
         Car[] cars = new Car[carNames.length];
         for (int i=0; i < carNames.length; i++) {
             cars[i] = new Car(carNames[i],energyGauge);
         }
-        return cars;
+        return new Cars(cars);
     }
 
     private Name[] waitValidCarNames() {
