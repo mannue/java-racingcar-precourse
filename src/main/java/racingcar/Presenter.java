@@ -9,6 +9,7 @@ public class Presenter {
     private static final String INPUT_DISPLAY_NAME = "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)";
     private static final String INPUT_DISPLAY_COUNT = "시도할 회수는 몇회인가요?";
     private static final String OUT_RESULT = "실행 결과";
+    private static final int ENTER_LINE_COUNT = 2;
 
     public static Optional<Name[]> inputCarNames() {
         try {
@@ -52,8 +53,8 @@ public class Presenter {
         System.out.println(INPUT_DISPLAY_COUNT);
     }
 
-    public static void disPlayResult() {
-        addEnter(2);
+    public static void displayResultTitle() {
+        enter(2);
         System.out.println(OUT_RESULT);
     }
 
@@ -71,7 +72,7 @@ public class Presenter {
                 .replace("]", "");
     }
 
-    private static void addEnter(final int num) {
+    private static void enter(final int num) {
         for (int i=1; i <= num; i++) {
             System.out.println();
         }

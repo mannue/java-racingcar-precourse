@@ -6,5 +6,6 @@ public class Application {
         RacingService racingService = new RacingService();
         racingService.userInput();
         racingService.play();
+        racingService.printWinner();
     }
 }

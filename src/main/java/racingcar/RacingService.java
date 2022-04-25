@@ -1,13 +1,12 @@
 package racingcar;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class RacingService {
     private final Energy energyGauge = RacingConfig.getDefaultEnergyGauge();
     private final EnergyGenerator generator;
-    private Name[] carNames;
     private RacingCount racingCount;
+    private Cars cars;
 
     public RacingService() {
         this.generator = new EnergyGenerator(RacingConfig.getMinRandom(),RacingConfig.getMaxRandom());
@@ -15,38 +14,45 @@ public class RacingService {
 
     public void userInput() {
         Presenter.disPlayPrintForName();
-        carNames = waitValidCarNames();
+        this.cars = createCars(waitValidCarNames());
         Presenter.disPlayPrintForTryCount();
-        racingCount = waitValidTryCount();
+        this.racingCount = waitValidTryCount();
     }
 
     public void play() {
-        Presenter.disPlayResult();
-        Cars cars = createCars();
-        start(cars);
+        Presenter.displayResultTitle();
+        racing();
+    }
+
+    public void printWinner() {
         Presenter.winnerPrint(cars.winner());
     }
 
-    private void start(final Cars cars) {
-        try {
-            eachPlay(cars);
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
+    private void racing() {
+        while (!isFinish()) {
+            perMatch();
         }
     }
 
-    private void eachPlay(final Cars cars) {
-       do {
-            racingCount = racingCount.decrease();
-            cars.play(this.generator);
-            Presenter.disPlayCar(cars);
-        } while (true);
+    private boolean isFinish() {
+        try {
+            this.racingCount = this.racingCount.decrease();
+            return false;
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+            return true;
+        }
     }
 
-    private Cars createCars() {
-        Car[] cars = new Car[carNames.length];
-        for (int i=0; i < carNames.length; i++) {
-            cars[i] = new Car(carNames[i],energyGauge);
+    private void perMatch() {
+        cars.play(this.generator);
+        Presenter.disPlayCar(cars);
+    }
+
+    private Cars createCars(final Name ... names) {
+        Car[] cars = new Car[names.length];
+        for (int i=0; i < names.length; i++) {
+            cars[i] = new Car(names[i],energyGauge);
         }
         return new Cars(cars);
     }
@@ -68,5 +74,4 @@ public class RacingService {
             }
         }
     }
-
 }
